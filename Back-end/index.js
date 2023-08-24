@@ -1,18 +1,12 @@
-const express = require('express');
+import express from "express";
+import cors from 'cors';
+import userRoutes from './routes/pacientes.js'
+
 const app = express();
-const path = require('path');
-const router = express.Router();
 
-router.get('/', function(req,res){
-    res.sendFile(path.join(__dirname+'/index.html'));
-});
+app.use(express.json());
+app.use(cors());
 
-router.get('/sobre', function(req,res){
-    res.sendFile(path.join(__dirname+'/sobre.html'));
+app.use("/", userRoutes)
 
-});
-
-app.use('/', router);
-app.listen(process.env.port || 3000)
-
-console.log("Servidor Rodando");
+app.listen(8800);
