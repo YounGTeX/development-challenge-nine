@@ -1,7 +1,6 @@
 form {
   display: flex;
   align-items: flex-end;
-  flex-direction: column;
   gap: 10px;
   flex-wrap: wrap;
   background-color: #fff;
