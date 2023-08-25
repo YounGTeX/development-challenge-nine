@@ -10,28 +10,28 @@ import Form from './components/Form';
 import Grid from './components/Grid';
 
 function App() {
-  const [users, setUsers] = useState([]);
+  const [pacientes, setPacientes] = useState([]);
   const [onEdit, setOnEdit] = useState(null);
   
-  const getUsers = async () => {
+  const getPacientes = async () => {
     try { 
       const res = await axios.get("http://localhost:8800");
-      setUsers(res.data.sort((a, b) => (a.nome > b.nome ? 1 : -1)));
+      setPacientes(res.data.sort((a, b) => (a.nome > b.nome ? 1 : -1)));
     } catch (error) {
       toast.error(error);
     }
   }
 
   useEffect(() => {
-    getUsers();
-  }, [setUsers]);
+    getPacientes();
+  }, [setPacientes]);
 
   return (
       <>
         <Container>
             <h2>Registro de pacientes</h2>
-            <Form />
-            <Grid users={users}/>
+            <Form  onEdit={onEdit} setOnEdit={setOnEdit} getPacientes={getPacientes}/>
+            <Grid pacientes={pacientes} setPacientes={setPacientes} setOnEdit={setOnEdit} />
         </Container>
         <ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_LEFT} />
         <GlobalStyle />
