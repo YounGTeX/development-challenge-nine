@@ -11,7 +11,7 @@ export const getPacientes = (_, res) => {
 
 export const addPaciente= (req, res) => {
     const q =
-      "INSERT INTO usuarios(`nome`, `email`, `endereço`, `data_nascimento`) VALUES(?)";
+      "INSERT INTO pacientes(`nome`, `email`, `endereço`, `data_nascimento`) VALUES(?)";
   
     const values = [
       req.body.nome,
@@ -29,7 +29,7 @@ export const addPaciente= (req, res) => {
   
 export const updatePaciente = (req, res) => {
     const q =
-      "UPDATE usuarios SET `nome` = ?, `email` = ?, `endereço` = ?, `data_nascimento` = ? WHERE `id` = ?";
+      "UPDATE pacientes SET `nome` = ?, `email` = ?, `endereço` = ?, `data_nascimento` = ? WHERE `id` = ?";
   
     const values = [
       req.body.nome,
@@ -46,7 +46,7 @@ export const updatePaciente = (req, res) => {
   };
   
 export const deletePaciente = (req, res) => {
-    const q = "DELETE FROM usuarios WHERE `id` = ?";
+    const q = "DELETE FROM pacientes WHERE `id` = ?";
   
     db.query(q, [req.params.id], (err) => {
       if (err) return res.json(err);
