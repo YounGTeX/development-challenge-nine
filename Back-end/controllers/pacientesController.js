@@ -1,17 +1,16 @@
 import { db } from "../db.js";
 
-export const getPacientes = (_, res) => {
-    const q = "SELECT * FROM pacientes";
-
+export const getUser = (_, res) => {
+    const q = "SELECT * FROM user";
     db.query(q, (err, data) => {
         if (err) return res.json(err);
         return res.status(200).json(data);
     });
 };
 
-export const addPaciente= (req, res) => {
+export const addUser= (req, res) => {
     const q =
-      "INSERT INTO pacientes(`nome`, `email`, `endereço`, `data_nascimento`) VALUES(?)";
+      "INSERT INTO user(`nome`, `email`, `endereço`, `data_nascimento`) VALUES(?)";
   
     const values = [
       req.body.nome,
@@ -27,9 +26,9 @@ export const addPaciente= (req, res) => {
     });
   };
   
-export const updatePaciente = (req, res) => {
+export const updateUser = (req, res) => {
     const q =
-      "UPDATE pacientes SET `nome` = ?, `email` = ?, `endereço` = ?, `data_nascimento` = ? WHERE `id` = ?";
+      "UPDATE user SET `nome` = ?, `email` = ?, `endereço` = ?, `data_nascimento` = ? WHERE `id` = ?";
   
     const values = [
       req.body.nome,
@@ -45,8 +44,8 @@ export const updatePaciente = (req, res) => {
     });
   };
   
-export const deletePaciente = (req, res) => {
-    const q = "DELETE FROM pacientes WHERE `id` = ?";
+export const deleteUser = (req, res) => {
+    const q = "DELETE FROM user WHERE `id` = ?";
   
     db.query(q, [req.params.id], (err) => {
       if (err) return res.json(err);

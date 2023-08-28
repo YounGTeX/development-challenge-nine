@@ -2,78 +2,95 @@ import './Form.css';
 import React, { useEffect, useRef } from "react";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { LocalizationProvider, DatePicker, DateField } from '@mui/x-date-pickers';
+import { LocalizationProvider, DateField } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { toast } from "react-toastify";
 import axios from "axios";
+import { useForm } from "react-hook-form";
 
-const Form = ({ onEdit, getPacientes, setOnEdit }) => {
+import Swal from 'sweetalert2'
+
+const Form = ({ onEdit, getUser, setOnEdit }) => {
   const ref = useRef();
+  const { register, handleSubmit } = useForm();
 
   useEffect(() => {
     if (onEdit) {
-      const paciente = ref.current;
+      const user = ref.current;
 
-      paciente.nome.value = onEdit.nome;
-      paciente.email.value = onEdit.email;
-      paciente.endereço.value = onEdit.endereço;
-      paciente.data_nascimento.value = onEdit.data_nascimento;
+      user.nome.value = onEdit.nome;
+      user.email.value = onEdit.email;
+      user.endereço.value = onEdit.endereço;
+      user.data_nascimento.value = onEdit.data_nascimento;
     }
   }, [onEdit]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmitForm = async (e) => {
+    // e.preventDefault();
 
-    const paciente = ref.current;
+    const user = ref.current;
 
     if (
-      !paciente.nome.value ||
-      !paciente.email.value ||
-      !paciente.endereço.value ||
-      !paciente.data_nascimento.value
+      !user.nome.value ||
+      !user.email.value ||
+      !user.endereço.value ||
+      !user.data_nascimento.value
     ) {
-      return alert("Preencha todos os campos!");
+      return Swal.fire('Preencha todos os campos');
     }
 
     if (onEdit) {
+
+      const data_nascimentoDay= user.data_nascimento.value.slice(0,2);
+      const data_nascimentoMonth = user.data_nascimento.value.slice(3,5);
+      const data_nascimentoYear = user.data_nascimento.value.slice(6,10);
+
+      user.data_nascimento.value = data_nascimentoYear+'-'+data_nascimentoMonth+'-'+data_nascimentoDay;
+
       await axios
         .put("http://localhost:8800/" + onEdit.id, {
-          nome: paciente.nome.value,
-          email: paciente.email.value,
-          endereço: paciente.endereço.value,
-          data_nascimento: paciente.data_nascimento.value,
+          nome: user.nome.value,
+          email: user.email.value,
+          endereço: user.endereço.value,
+          data_nascimento: user.data_nascimento.value,
         })
-        .then(({ data }) => toast.success(data))
-        .catch(({ data }) => toast.error(data));
+        .then(({ data }) => Swal.fire('Paciente atualizado com sucesso!'))
+        .catch(({ data }) => Swal.fire('Paciente atualizado com sucesso!'));
     } else {
+
+    const data_nascimentoDay = user.data_nascimento.value.slice(0,2);
+    const data_nascimentoMonth = user.data_nascimento.value.slice(3,5);
+    const data_nascimentoYear = user.data_nascimento.value.slice(6,10);
+
+    user.data_nascimento.value = data_nascimentoYear+'-'+data_nascimentoMonth+'-'+data_nascimentoDay;
+
       await axios
         .post("http://localhost:8800", {
-          nome: paciente.nome.value,
-          email: paciente.email.value,
-          endereço: paciente.endereço.value,
-          data_nascimento: paciente.data_nascimento.value,
+          nome: user.nome.value,
+          email: user.email.value,
+          endereço: user.endereço.value,
+          data_nascimento: user.data_nascimento.value,
         })
-        .then(({ data }) => toast.success(data))
-        .catch(({ data }) => toast.error(data));
+        .then(({ data }) => Swal.fire('Paciente registrado com sucesso!'))
+        .catch(({ data }) =>  Swal.fire('Paciente registrado com sucesso!'));
     }
 
-    paciente.nome.value = "";
-    paciente.email.value = "";
-    paciente.endereço.value = "";
-    paciente.data_nascimento.value = "";
+    user.nome.value = "";
+    user.email.value = "";
+    user.endereço.value = "";
+    user.data_nascimento.value = "";
 
     setOnEdit(null);
-    getPacientes();
+    getUser();
   };
 
 
 return (
-    <form ref={ref} onSubmit={handleSubmit}>
-      <TextField id="standard-basic" name="nome" label="Nome" variant="standard" />
-      <TextField id="standard-basic" name="email" type="email" label="Email" variant="standard" />
-      <TextField id="standard-basic" name="endereço" label="Endereço" variant="standard" />
+    <form ref={ref} onSubmit={handleSubmit(handleSubmitForm)}>
+      <TextField id="standard-basic" {...register('nome')} InputLabelProps={{ shrink: true }} label="Nome" variant="standard" />
+      <TextField id="standard-basic" {...register('email')} InputLabelProps={{ shrink: true }} type="email" label="Email" variant="standard" />
+      <TextField id="standard-basic" {...register('endereço')} InputLabelProps={{ shrink: true }}  label="Endereço" variant="standard" />
       <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <DateField label="Data de nascimento" name="data_nascimento" variant="standard"/>
+        <DateField InputLabelProps={{ shrink: true }} format="dd/MM/yyyy" label="Data de nascimento" name="data_nascimento" variant="standard"/>
       </LocalizationProvider>
       <Button type="submit" variant="contained">Registrar</Button>
     </form>

@@ -3,10 +3,10 @@ import React from "react";
 import axios from "axios";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { toast } from "react-toastify";
 import { Table, TableContainer, TableHead, TableRow, TableBody, Paper, TableCell } from '@mui/material';
+import Swal from 'sweetalert2'
 
-const Grid = ({ pacientes, setPacientes, setOnEdit }) => {
+const Grid = ({ user, setUser, setOnEdit }) => {
     const handleEdit = (item) => {
         setOnEdit(item);
       };
@@ -15,12 +15,12 @@ const Grid = ({ pacientes, setPacientes, setOnEdit }) => {
         await axios
           .delete("http://localhost:8800/" + id)
           .then(({ data }) => {
-            const newArray = pacientes.filter((user) => user.id !== id);
+            const newArray = user.filter((user) => user.id !== id);
     
-            setPacientes(newArray);
-            toast.success(data);
+            setUser(newArray);
+            Swal.fire('Paciente excluído com sucesso!');
           })
-          .catch(({ data }) => toast.error(data));
+          .catch(({ data }) => Swal.fire( data ));
     
         setOnEdit(null);
       };
@@ -39,12 +39,12 @@ const Grid = ({ pacientes, setPacientes, setOnEdit }) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {pacientes.map((item, i) => (
+                    {user.map((item, i) => (
                     <TableRow key={i}>
                         <TableCell>{item.nome}</TableCell>
                         <TableCell>{item.endereço}</TableCell>
                         <TableCell>{item.email}</TableCell>
-                        <TableCell>{item.data_nascimento}</TableCell>
+                        <TableCell>{item.data_nascimento = item.data_nascimento.slice(0,10).split("-").reverse().join("/")}</TableCell>
                         <TableCell><EditIcon onClick={() => handleEdit(item)} /></TableCell>
                         <TableCell><DeleteIcon onClick={() => handleDelete(item.id)} /></TableCell>
                     </TableRow>
