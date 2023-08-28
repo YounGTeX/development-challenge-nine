@@ -30,12 +30,18 @@ const Form = ({ onEdit, getUser, setOnEdit }) => {
     const user = ref.current;
 
     if (
-      !user.nome.value ||
-      !user.email.value ||
-      !user.endereço.value ||
-      !user.data_nascimento.value
+      !user.nome.value 
     ) {
-      return Swal.fire('Preencha todos os campos');
+      return Swal.fire('Nome inválido');
+    } else if (!user.email.value)
+      {
+      return Swal.fire('Email inválido');
+    } else if (!user.endereço.value)
+      {
+      return Swal.fire('Endereço inválido');
+    } else if (!user.data_nascimento.value)
+     {
+      return Swal.fire('Data de nascimento inválida');
     }
 
     if (onEdit) {
@@ -86,9 +92,9 @@ const Form = ({ onEdit, getUser, setOnEdit }) => {
 
 return (
     <form ref={ref} onSubmit={handleSubmit(handleSubmitForm)}>
-      <TextField id="standard-basic" {...register('nome')} InputLabelProps={{ shrink: true }} label="Nome" variant="standard" />
-      <TextField id="standard-basic" {...register('email')} InputLabelProps={{ shrink: true }} type="email" label="Email" variant="standard" />
-      <TextField id="standard-basic" {...register('endereço')} InputLabelProps={{ shrink: true }}  label="Endereço" variant="standard" />
+      <TextField id="standard-basic" {...register('nome')} inputProps={{ maxLength: 254 }} InputLabelProps={{ shrink: true }} label="Nome" variant="standard" />
+      <TextField id="standard-basic" {...register('email')} inputProps={{ maxLength: 254 }} InputLabelProps={{ shrink: true }} type="email" label="Email" variant="standard" />
+      <TextField id="standard-basic" {...register('endereço')} inputProps={{ maxLength: 254 }} InputLabelProps={{ shrink: true }}  label="Endereço" variant="standard" />
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DateField InputLabelProps={{ shrink: true }} format="dd/MM/yyyy" label="Data de nascimento" name="data_nascimento" variant="standard"/>
       </LocalizationProvider>
