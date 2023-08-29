@@ -10,10 +10,10 @@ const Global = createGlobalStyle`
 
 body {
     width: 100vw;
-    height: 100vw;
+    height: 75vw;
     display: flex;
     justify-content: center;
-    background-color: #f2f2f2;
+    background: linear-gradient(#019ee4, #ffffff);
 }
 `;
 

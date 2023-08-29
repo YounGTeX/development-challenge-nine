@@ -3,7 +3,7 @@ import React from "react";
 import axios from "axios";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Table, TableContainer, TableHead, TableRow, TableBody, Paper, TableCell } from '@mui/material';
+import { Table, TableContainer, TableHead, TableRow, TableBody, Paper, TableCell, TablePagination } from '@mui/material';
 import Swal from 'sweetalert2'
 
 const Grid = ({ user, setUser, setOnEdit }) => {
@@ -25,6 +25,21 @@ const Grid = ({ user, setUser, setOnEdit }) => {
         setOnEdit(null);
       };
 
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+  const handleChangeRowsPerPage = event => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const emptyRows =
+    rowsPerPage - Math.min(rowsPerPage, user.length - page * rowsPerPage);
+
     return (
         <TableContainer component={Paper}>
             <Table aria-label='simple table'>
@@ -39,7 +54,7 @@ const Grid = ({ user, setUser, setOnEdit }) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {user.map((item, i) => (
+                    {user.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, i) => (
                     <TableRow key={i}>
                         <TableCell>{item.nome}</TableCell>
                         <TableCell>{item.endereço}</TableCell>
@@ -49,9 +64,22 @@ const Grid = ({ user, setUser, setOnEdit }) => {
                         <TableCell><DeleteIcon onClick={() => handleDelete(item.id)} /></TableCell>
                     </TableRow>
                     ))}
+                    {emptyRows > 0 && (
+                        <TableRow style={{ height: 53 * emptyRows }}>
+                            <TableCell colSpan={6} />
+                        </TableRow>
+                    )}
                 </TableBody>
             </Table>
-        </TableContainer>
+            <TablePagination
+                component="div"
+                count={user.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+            />
+            </TableContainer>
     );
 };
 
