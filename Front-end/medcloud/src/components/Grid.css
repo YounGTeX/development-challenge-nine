@@ -9,3 +9,6 @@
   word-break: break-all;
 }
 
+.MuiTable-root h2 {
+  color: black;
+}

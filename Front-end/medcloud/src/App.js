@@ -28,7 +28,7 @@ function App() {
   return (
       <>
         <Container>
-            <h2>Registro de pacientes</h2>
+            <h2 className='title'>Registro de pacientes</h2>
             <Form  onEdit={onEdit} setOnEdit={setOnEdit} getUser={getUser}/>
             <Grid user={user} setUser={setUser} setOnEdit={setOnEdit} />
         </Container>

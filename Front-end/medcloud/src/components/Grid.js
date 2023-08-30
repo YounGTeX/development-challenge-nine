@@ -26,7 +26,7 @@ const Grid = ({ user, setUser, setOnEdit }) => {
       };
 
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -74,10 +74,11 @@ const Grid = ({ user, setUser, setOnEdit }) => {
             <TablePagination
                 component="div"
                 count={user.length}
-                rowsPerPage={rowsPerPage}
+                rowsPerPage={5}
                 page={page}
                 onPageChange={handleChangePage}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
+                rowsPerPageOptions={[5]} 
             />
             </TableContainer>
     );
