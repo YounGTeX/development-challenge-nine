@@ -3,7 +3,7 @@ import React from "react";
 import axios from "axios";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Table, TableContainer, TableHead, TableRow, TableBody, Paper, TableCell, TablePagination } from '@mui/material';
+import { Table, TableContainer, TableHead, TableRow, TableBody, Paper, TableCell, TablePagination, TextField, Container } from '@mui/material';
 import Swal from 'sweetalert2'
 
 const Grid = ({ user, setUser, setOnEdit }) => {
@@ -27,6 +27,9 @@ const Grid = ({ user, setUser, setOnEdit }) => {
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [busca, setBusca] = React.useState('');
+
+    let buscaUser = user.filter(element => element.nome.toLowerCase().includes(busca.toLowerCase()));
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -40,8 +43,15 @@ const Grid = ({ user, setUser, setOnEdit }) => {
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, user.length - page * rowsPerPage);
 
+  const emptyRowsSearch =
+    rowsPerPage - Math.min(rowsPerPage, buscaUser.length - page * rowsPerPage);
+
     return (
+
         <TableContainer component={Paper}>
+          <Container className='searchField'>
+            <TextField id="standard-basic" fullWidth inputProps={{ maxLength: 254 }} label="Busca" value={busca} onChange={e => setBusca(e.target.value)} variant="standard" />
+          </Container>
             <Table aria-label='simple table'>
                 <TableHead>
                     <TableRow>
@@ -54,7 +64,7 @@ const Grid = ({ user, setUser, setOnEdit }) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {user.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, i) => (
+                    {buscaUser.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, i) => (
                     <TableRow key={i}>
                         <TableCell>{item.nome}</TableCell>
                         <TableCell>{item.endereço}</TableCell>
@@ -71,15 +81,28 @@ const Grid = ({ user, setUser, setOnEdit }) => {
                     )}
                 </TableBody>
             </Table>
-            <TablePagination
-                component="div"
-                count={user.length}
-                rowsPerPage={5}
-                page={page}
-                onPageChange={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-                rowsPerPageOptions={[5]} 
-            />
+            {busca === '' ? 
+              <TablePagination
+                  component="div"
+                  count={user.length}
+                  rowsPerPage={5}
+                  page={page}
+                  onPageChange={handleChangePage}
+                  onChangeRowsPerPage={handleChangeRowsPerPage}
+                  rowsPerPageOptions={[5]} 
+              /> : <>
+              <TableRow style={{ height: 53 * emptyRowsSearch }}></TableRow>
+              <TablePagination
+                  component="div"
+                  count={buscaUser.length}
+                  rowsPerPage={5}
+                  page={page}
+                  onPageChange={handleChangePage}
+                  onChangeRowsPerPage={handleChangeRowsPerPage}
+                  rowsPerPageOptions={[5]} 
+              /> 
+            </>
+            }
             </TableContainer>
     );
 };
