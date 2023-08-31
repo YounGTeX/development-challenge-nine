@@ -26,7 +26,7 @@ const Grid = ({ user, setUser, setOnEdit }) => {
       };
 
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [rowsPerPage] = React.useState(5);
     const [busca, setBusca] = React.useState('');
 
     let buscaUser = user.filter(element => element.nome.toLowerCase().includes(busca.toLowerCase()));
@@ -34,11 +34,6 @@ const Grid = ({ user, setUser, setOnEdit }) => {
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
-
-  const handleChangeRowsPerPage = event => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, user.length - page * rowsPerPage);
@@ -88,7 +83,6 @@ const Grid = ({ user, setUser, setOnEdit }) => {
                   rowsPerPage={5}
                   page={page}
                   onPageChange={handleChangePage}
-                  onChangeRowsPerPage={handleChangeRowsPerPage}
                   rowsPerPageOptions={[5]} 
               /> : <>
               <TableRow style={{ height: 53 * emptyRowsSearch }}></TableRow>
@@ -98,7 +92,6 @@ const Grid = ({ user, setUser, setOnEdit }) => {
                   rowsPerPage={5}
                   page={page}
                   onPageChange={handleChangePage}
-                  onChangeRowsPerPage={handleChangeRowsPerPage}
                   rowsPerPageOptions={[5]} 
               /> 
             </>

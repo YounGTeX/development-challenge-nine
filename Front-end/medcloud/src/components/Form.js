@@ -28,6 +28,23 @@ const Form = ({ onEdit, getUser, setOnEdit }) => {
     // e.preventDefault();
 
     const user = ref.current;
+    const data_nascimentoDay = user.data_nascimento.value.slice(0,2);
+    const data_nascimentoMonth = user.data_nascimento.value.slice(3,5);
+    const data_nascimentoYear = user.data_nascimento.value.slice(6,10);
+
+    const dataAtual = new Date();
+    let year = dataAtual.getFullYear(); 
+    let month = dataAtual.getMonth()+1; 
+    let day = dataAtual.getDate();
+    console.log(day);
+    
+    if(year < data_nascimentoYear) {
+      return Swal.fire('Data de nascimento inválida');
+    } else if (month < data_nascimentoMonth) {
+      return Swal.fire('Data de nascimento inválida');
+    } else if (day < data_nascimentoDay) {
+      return Swal.fire('Data de nascimento inválida');
+    }
 
     if (
       !user.nome.value 
@@ -39,16 +56,15 @@ const Form = ({ onEdit, getUser, setOnEdit }) => {
     } else if (!user.endereço.value)
       {
       return Swal.fire('Endereço inválido');
-    } else if (!user.data_nascimento.value)
+    } else if (!user.data_nascimento.value ||
+               isNaN(data_nascimentoDay) ||
+               isNaN(data_nascimentoMonth) ||
+               isNaN(data_nascimentoYear))
      {
       return Swal.fire('Data de nascimento inválida');
     }
 
     if (onEdit) {
-
-      const data_nascimentoDay= user.data_nascimento.value.slice(0,2);
-      const data_nascimentoMonth = user.data_nascimento.value.slice(3,5);
-      const data_nascimentoYear = user.data_nascimento.value.slice(6,10);
 
       user.data_nascimento.value = data_nascimentoYear+'-'+data_nascimentoMonth+'-'+data_nascimentoDay;
 
@@ -62,10 +78,6 @@ const Form = ({ onEdit, getUser, setOnEdit }) => {
         .then(({ data }) => Swal.fire('Paciente atualizado com sucesso!'))
         .catch(({ data }) => Swal.fire('Paciente atualizado com sucesso!'));
     } else {
-
-    const data_nascimentoDay = user.data_nascimento.value.slice(0,2);
-    const data_nascimentoMonth = user.data_nascimento.value.slice(3,5);
-    const data_nascimentoYear = user.data_nascimento.value.slice(6,10);
 
     user.data_nascimento.value = data_nascimentoYear+'-'+data_nascimentoMonth+'-'+data_nascimentoDay;
 
@@ -96,7 +108,7 @@ return (
       <TextField id="standard-basic" {...register('email')} inputProps={{ maxLength: 254 }} InputLabelProps={{ shrink: true }} type="email" label="Email" variant="standard" />
       <TextField id="standard-basic" {...register('endereço')} inputProps={{ maxLength: 254 }} InputLabelProps={{ shrink: true }}  label="Endereço" variant="standard" />
       <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <DateField InputLabelProps={{ shrink: true }} format="dd/MM/yyyy" label="Data de nascimento" name="data_nascimento" variant="standard"/>
+        <DateField InputLabelProps={{ shrink: true }} format="dd/MM/yyyy" disableFuture={true} label="Data de nascimento" name="data_nascimento" variant="standard"/>
       </LocalizationProvider>
       <Button type="submit" variant="contained">Registrar</Button>
     </form>
