@@ -36,15 +36,27 @@ const Form = ({ onEdit, getUser, setOnEdit }) => {
     let year = dataAtual.getFullYear(); 
     let month = dataAtual.getMonth()+1; 
     let day = dataAtual.getDate();
-    console.log(day);
     
-    if(year < data_nascimentoYear) {
-      return Swal.fire('Data de nascimento inválida');
-    } else if (month < data_nascimentoMonth) {
-      return Swal.fire('Data de nascimento inválida');
-    } else if (day < data_nascimentoDay) {
-      return Swal.fire('Data de nascimento inválida');
+    if (year < data_nascimentoYear) {
+      return Swal.fire('Data de nascimento deve ser anterior ao dia de hoje');
     }
+
+    if(year == data_nascimentoYear) {
+      if (month < data_nascimentoMonth) {
+        return Swal.fire('Data de nascimento deve ser anterior ao dia de hoje');
+        } 
+      }
+    
+    if(year == data_nascimentoYear) {
+      if (month == data_nascimentoMonth) {
+        if (day < data_nascimentoDay) {
+          return Swal.fire('Data de nascimento deve ser anterior ao dia de hoje');
+        }
+      } 
+    }
+   
+    
+
 
     if (
       !user.nome.value 
@@ -56,10 +68,7 @@ const Form = ({ onEdit, getUser, setOnEdit }) => {
     } else if (!user.endereço.value)
       {
       return Swal.fire('Endereço inválido');
-    } else if (!user.data_nascimento.value ||
-               isNaN(data_nascimentoDay) ||
-               isNaN(data_nascimentoMonth) ||
-               isNaN(data_nascimentoYear))
+    } else if (!user.data_nascimento.value)
      {
       return Swal.fire('Data de nascimento inválida');
     }
