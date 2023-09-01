@@ -1,65 +1,60 @@
-# Development challenge
+# CRUD Web Full Stack - Estágio Desenvolvimento
 
-![logo medcloud-03 white copy](https://user-images.githubusercontent.com/46347123/158176045-de9fefb0-35e2-4515-83ff-c132608aa870.png)
+Bem-vindo ao projeto de CRUD (Create, Read, Update, Delete) desenvolvido para o desafio de vaga de estágio na área de desenvolvimento web full stack na medcloud. 
 
-About Medcloud:
+## Visão Geral
 
-We make exams and medical data management more flexible, secure and effective by accelerating the transition from clinics and hospitals to the cloud.
-The RIS and PACS systems have been practically the same for the past 25 years. Interoperability problems, high costs and a lack of understanding about the patient's access to his medical records.
+Este projeto consiste em uma aplicação web que realiza operações CRUD em um determinado conjunto de dados. O projeto inclui as seguintes funcionalidades:<br />
 
-These points defined limits for the doctor-patient relationship and barriers to radiology workflows. We are revolutionizing this through a Care Coordination based solution that improves workflows for providers and integrates doctors and patients for a better experience.
+Create: Adição de novos itens ao conjunto de dados.<br />
+Read: Visualização dos itens existentes no conjunto de dados.<br />
+Update: Atualização dos detalhes de um item existente.<br />
+Delete: Remoção de itens do conjunto de dados.<br />
 
-Since our foundation, almost 10 years ago, we have prioritized excellence in the management of health data, structuring workflows of health professionals, clinics, laboratories and hospitals for assertive and quality diagnostics.
+## Tecnologias Utilizadas
 
-We understand that behind each medical record there is a patient seeking to improve his health and the hope of family members for his well being. After all, we are all patients, and Medcloud's mission is to help you live longer and better. #PatientFirst
+Frontend: ReactJS<br />
+Backend: Node.js, Express.js<br />
+Banco de Dados: MySQL<br />
 
-Medcloud's challenge for Dev Full Stack.
 
-## Goal
+## Setup do Projeto
 
-- To develop a web application (CRUD) to manage patient registers (Patient's name, birth date, email and address).
+Clone este repositório para a sua máquina local.<br />
+Navegue para a pasta raiz do projeto.<br />
+Instale as dependências do backend usando o comando: npm install<br />
+Adicione um arquivo chamado db.js com a seguinte estrutura:<br />
+import mysql from "mysql"<br />
+<br />
+export const db = mysql.createConnection({<br />
+    host: "localhost",<br />
+    user: "root",<br />
+    password: "password",<br />
+    database: "crud"<br />
+})<br />
+Navegue para a pasta frontend e instale as dependências do frontend também: npm install<br />
 
-## Required
+## Executando a Aplicação
 
-- You need to develop both the front-end and the back-end.
-- In the front-end you MUST use React.
-- In the back-end you MUST use Node.js.
-- The patient data should not be static  (You MUST use a cloud database or a local database).
-- Field validation (date, required fields, etc).
+Inicie o servidor backend: Navegue para a pasta raiz do projeto e execute yarn start.<br />
+Inicie o servidor frontend: Navegue para a pasta frontend e execute yarn start.<br />
+Acesse a aplicação em seu navegador através do link: http://localhost:3000.<br />
 
-## Extra Points
+## Funcionalidades
 
-- Cache the data in-browser.
-- Pagination.
-- Use Material UI - https://material-ui.com.
-- A cool design.
-- If you choose a local database: a docker environment of your project.
+Adição de Item: Na página inicial, há um formulário para adicionar novos itens ao conjunto de dados. Preencha os campos e clique em "Registrar" para incluir um novo item.
 
-## References
+Lista de Itens: A página inicial também exibe uma lista de todos os itens existentes no conjunto de dados, permitindo a visualização rápida. Assim como uma barra de pesquisa para facilitar a busca de itens específicos.
 
-- Intro to React: https://reactjs.org/tutorial/tutorial.html.
+Atualização de Item: Cada item na lista possui um botão "Editar" que permite atualizar os detalhes desse item.
 
-## What will be evaluated:
+Remoção de Item: Ao lado de cada item na lista, há um botão "Excluir" que permite remover o item do conjunto de dados.
 
-- Clean and organized code (naming, etc.)
-- Knowledge of patterns (PSRs, design patterns, SOLID)
-- Be consistent and know how to argue your choices
-- Present solutions you master
-- Data Modeling
-- Code maintainability
-- Error handling
-- Architecture (structuring thought before writing)
-- Affection in decoupling components (other layers, service, repository)
+## Considerações Finais
 
-According to the above criteria, we will evaluate your test in order to proceed to the technical interview. If you have not acceptably achieved what we are proposing above, we will not proceed with the process.
+Primeiramente, gostaria de expressar minha gratidão pela oportunidade de participar deste processo seletivo e apresentar o projeto de CRUD que desenvolvi como parte do desafio para a vaga de estágio na área de desenvolvimento web full stack.
 
-## Delivery
+O objetivo deste projeto foi criar uma aplicação web que demonstrasse minhas habilidades e conhecimentos em várias áreas do desenvolvimento web, incluindo frontend, backend e integração com banco de dados. O foco principal foi criar uma aplicação funcional que permitisse aos usuários realizar as operações fundamentais de criação, leitura, atualização e exclusão de dados.
 
-You MUST fork this repository to your own account and push you code to it. 
-When you finish it, you must send a email to cv@medcloud.com.br with your curriculum and your fork.
-
-Good luck! Any doubts, feel free to send an email to cv@medcloud.com.br.
-
-## For the day of the technical interview and code review
-
-On the date set by the recruiter, have your application running on your local machine to run the tests and to show us the points developed and possible questions. We will do a code review together with you as if you were already on our team, you will be able to explain what you thought, how you architected and how the project can evolve. Good luck!
+Autor: Thiago Pankievicz<br />
+Contato: pankieviczthiago@gmail.com
