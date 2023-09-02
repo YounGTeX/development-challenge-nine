@@ -37,6 +37,19 @@ const Form = ({ onEdit, getUser, setOnEdit }) => {
     let month = dataAtual.getMonth()+1; 
     let day = dataAtual.getDate();
     
+
+    if (isNaN(data_nascimentoYear)) {
+      return Swal.fire('Data de nascimento inválida');
+    }
+
+    if (isNaN(data_nascimentoMonth)) {
+      return Swal.fire('Data de nascimento inválida');
+    }
+
+    if (isNaN(data_nascimentoDay)) {
+      return Swal.fire('Data de nascimento inválida');
+    }
+
     if (year < data_nascimentoYear) {
       return Swal.fire('Data de nascimento deve ser anterior ao dia de hoje');
     }
@@ -55,8 +68,6 @@ const Form = ({ onEdit, getUser, setOnEdit }) => {
       } 
     }
    
-    
-
 
     if (
       !user.nome.value 
