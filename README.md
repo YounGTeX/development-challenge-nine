@@ -23,7 +23,7 @@ Banco de Dados: MySQL<br />
 Clone este repositório para a sua máquina local.<br />
 Navegue para a pasta raiz do projeto.<br />
 Instale as dependências do backend usando o comando: npm install<br />
-Adicione um arquivo chamado db.js com a seguinte estrutura:<br />
+Adicione um arquivo chamado db.js com a seguinte estrutura:<br /><br />
 import mysql from "mysql"<br />
 <br />
 export const db = mysql.createConnection({<br />
@@ -31,7 +31,9 @@ export const db = mysql.createConnection({<br />
     user: "root",<br />
     password: "password",<br />
     database: "crud"<br />
-})<br />
+})<br /><br />
+Dentro do MySQL Workbench, crie um schema chamado "crud".
+Em seguida, abra o terminal na pasta raiz do backend e execute a migration com o seguinte comando: npx sequelize-cli db:migrate<br />
 Navegue para a pasta frontend e instale as dependências do frontend também: npm install<br />
 
 ## Executando a Aplicação
@@ -42,13 +44,13 @@ Acesse a aplicação em seu navegador através do link: http://localhost:3000.<b
 
 ## Funcionalidades
 
-Adição de Item: Na página inicial, há um formulário para adicionar novos itens ao conjunto de dados. Preencha os campos e clique em "Registrar" para incluir um novo item.
+Adição de Paciente: Na página inicial, há um formulário para adicionar novos pacientes ao conjunto de dados. Preencha os campos e clique em "Registrar" para incluir um novo paciente.
 
 Lista de Itens: A página inicial também exibe uma lista de todos os itens existentes no conjunto de dados, permitindo a visualização rápida. Assim como uma barra de pesquisa para facilitar a busca de itens específicos.
 
-Atualização de Item: Cada item na lista possui um botão "Editar" que permite atualizar os detalhes desse item.
+Atualização de paciente: Cada paciente na lista possui um botão "Editar" que permite atualizar os detalhes desse paciente.
 
-Remoção de Item: Ao lado de cada item na lista, há um botão "Excluir" que permite remover o item do conjunto de dados.
+Remoção de paciente: Ao lado de cada paciente na lista, há um botão "Excluir" que permite remover o paciente do conjunto de dados.
 
 ## Considerações Finais
 

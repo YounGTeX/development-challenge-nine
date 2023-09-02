@@ -10,7 +10,7 @@ const Global = createGlobalStyle`
 
 body {
     width: 100vw;
-    height: 50vw;
+    height: 53vw;
     display: flex;
     justify-content: center;
     background: linear-gradient(#019ee4, #97d7f4);
