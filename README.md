@@ -13,9 +13,9 @@ Delete: Remoção de itens do conjunto de dados.<br />
 
 ## Tecnologias Utilizadas
 
-Frontend: ReactJS<br />
-Backend: Node.js, Express.js<br />
-Banco de Dados: MySQL<br />
+Frontend: ReactJS v18.2.0<br />
+Backend: Node.js v18.12.1, Express.js v4.18.2<br />
+Banco de Dados: MySQL 8.0.31<br />
 
 
 ## Setup do Projeto
@@ -23,16 +23,8 @@ Banco de Dados: MySQL<br />
 Clone este repositório para a sua máquina local.<br />
 Navegue para a pasta raiz do projeto.<br />
 Instale as dependências do backend usando o comando: npm install<br />
-Adicione um arquivo chamado db.js com a seguinte estrutura:<br /><br />
-import mysql from "mysql"<br />
-<br />
-export const db = mysql.createConnection({<br />
-    host: "localhost",<br />
-    user: "root",<br />
-    password: "password",<br />
-    database: "crud"<br />
-})<br /><br />
-Dentro do MySQL Workbench, crie um schema chamado "crud".
+Modifique o arquivo db.js com as suas credencias do MySQL<br />
+Dentro do MySQL Workbench, crie um schema chamado "crud".<br />
 Em seguida, abra o terminal na pasta raiz do backend e execute a migration com o seguinte comando: npx sequelize-cli db:migrate<br />
 Navegue para a pasta frontend e instale as dependências do frontend também: npm install<br />
 
